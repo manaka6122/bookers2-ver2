@@ -69,26 +69,23 @@ Rails.application.configure do
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
-
+  config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   # config.hosts << "a8c9cb2b77b24968bf1f0967084f4a3f.vfs.cloud9.us-east-1.amazonaws.com"
   config.hosts << "49e69874be6d4ef3a0718e9b15430b98.vfs.cloud9.us-east-1.amazonaws.com"
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
   config.hosts << "b9d5bf08cb2744b6b7d729ca00c8a022.vfs.cloud9.us-east-1.amazonaws.com"
 
-  mail = ENV['MAIL_ADDRESS']
-  pass = ENV['MAIL_PASSWORD']
 
-  config.file_watcher = ActiveSupport::EventedFileUpdateChecker
-    config.action_mailer.raise_delivery_errors = true
+
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings  = {
-      :user_name => mail,
-      :password => pass,
-      :domain => "gmail.com",
-      :address => "smtp.gmail.com",
-      :port => 587,
-      :authentication => :plain,
-      :enable_starttls_auto => true
+    address:              'smtp.gmail.com',
+    port:                  587,
+    domain:               'gmail.com',
+    user_name:            ENV['MAIL_ADDRESS'],
+    password:             ENV['MAIL_PASSWORD'],
+    authentication:       'plain',
+    enable_starttls_auto:  true
     }
 end
